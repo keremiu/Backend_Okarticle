@@ -1,0 +1,3 @@
+admin:kerem
+passwword:ztwk3iTKlL8RuQyE
+cluster:cluster0
