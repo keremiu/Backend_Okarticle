@@ -1,1 +1,3 @@
 global file tut 
+
+tokinizer ve model singelton

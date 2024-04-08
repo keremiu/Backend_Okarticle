@@ -1,13 +1,32 @@
 import motor.motor_asyncio
 from bson.objectid import ObjectId
-
 client = motor.motor_asyncio.AsyncIOMotorClient('mongodb+srv://kerem:ztwk3iTKlL8RuQyE@cluster0.0pubafo.mongodb.net/')
 db = client.pdf_database  
 pdf_collection = db.pdfs  
-
-async def insert_pdf(pdf_data):
+from sklearn.metrics.pairwise import cosine_similarity
+async def insert_pdf(pdf_text,model_sim):
+    pdf_vector = model_sim.encode([pdf_text])[0].tolist()
+    pdf_data = {"text": pdf_text, "vector": pdf_vector}
     result = await pdf_collection.insert_one(pdf_data)
     return str(result.inserted_id)
+
+async def calculate_similarity_with_db(new_pdf_text,model_sim):
+    print("ModeL SİM DATABASE:", model_sim)
+    new_pdf_vector = model_sim.encode([new_pdf_text])[0]
+    async for pdf in pdf_collection.find({}):
+        existing_pdf_vector = pdf["vector"]
+        similarity = cosine_similarity([new_pdf_vector], [existing_pdf_vector])[0][0]
+        if similarity > 0.95:
+            return True
+    return False
+
+async def delete_all_pdfs():
+    result = await pdf_collection.delete_many({})
+    return result.deleted_count
+
+async def get_pdf_vector(pdf_id):
+    document = await pdf_collection.find_one({"_id": ObjectId(pdf_id)}, {"vector": 1})
+    return document.get("vector", [])
 
 async def get_pdf(pdf_id):
     document = await pdf_collection.find_one({"_id": ObjectId(pdf_id)})

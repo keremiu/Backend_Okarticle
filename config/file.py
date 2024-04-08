@@ -1,10 +1,7 @@
 
-
 import PyPDF2 
 import tempfile
 import os
-
-
 def extract_text_from_bytes(contents):
     with tempfile.NamedTemporaryFile(delete=False) as temp_file:
         temp_file.write(contents)
