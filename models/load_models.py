@@ -12,13 +12,13 @@ def load_model_similarty():
     
 def load_model_sum():
     global model_sum
-    model_sum = BartForConditionalGeneration.from_pretrained("facebook/bart-large-cnn")
+   # model_sum = BartForConditionalGeneration.from_pretrained("facebook/bart-large-cnn")
     with open('model.pkl', 'rb') as file:
         model_sum = pickle.load(file)
     
 def load_tokenizer_sum():
     global tokenizer
-    tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn")
+    #tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn")
     with open('tokenizer.pkl', 'rb') as file:
         tokenizer = pickle.load(file)
         

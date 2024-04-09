@@ -1,3 +1,4 @@
-global file tut 
+aistudio8754
+GhmiWj2MDS5zDeN6
 
-tokinizer ve model singelton
+mongodb+srv://<username>:<password>@cluster0.sjqmg2q.mongodb.net/

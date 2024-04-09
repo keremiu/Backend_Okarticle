@@ -1,2 +1,2 @@
 uvicorn main:app --reload
-uvicorn main:app --host 10.5.66.205  --port 8000
+uvicorn main:app --host  192.168.242.108  --port 8000

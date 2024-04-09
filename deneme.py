@@ -6,12 +6,10 @@ from transformers import pipeline, AutoTokenizer, BartForConditionalGeneration
 model_sum = BartForConditionalGeneration.from_pretrained("facebook/bart-large-cnn")
 tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn")
 
-
+model_sim = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 tree = get_tree_from_article_pdf("Device_to_Device_Communication_using_Stackelberg_Game_Theory_approach.pdf")
-tree.calculate_count_of_words()
-#str = tree.get_article_tree_as_string()
-#print(str)
-result = tree.summarize_parts(0.4, tokenizer, model_sum)
-print(result)
+str = tree.get_article_tree_as_string()
+print(tree.get_context("as  D2D  users  can  share/reuse  the  UL  or  DL  (uplink/  downlink)  resource  blocks  (RBs)  of  the  cellular  users",5,model_sim))
+
 
 

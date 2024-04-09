@@ -14,9 +14,13 @@ async def list_pdfs():
     async for pdf in pdf_collection.find():
         pdfs.append(pdf)
     return pdfs
-
+async def list_pdf_names():
+    names = []
+    async for pdf in pdf_collection.find({}, {'name': 1}):  # Projection to return only the name field
+        names.append(pdf['name'])
+    return names
 async def main():
-    pdfs = await list_pdfs()
+    pdfs = await list_pdf_names()
     print(f"Silinen PDF belge sayısı: {pdfs}")
 
 if __name__ == "__main__":
